@@ -4,12 +4,12 @@
     "description": "",
     "main": "Challenge06.js",
     "scripts": {
-      "test": "jest"
+        "test": "jest"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "dependencies": {
-      "jest": "^27.4.7"
+        "jest": "^27.4.7"
     }
-  }
+}
