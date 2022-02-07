@@ -83,33 +83,37 @@ const objLat = (obj) => {
 // ------------------------
 const cvFormatter = (arr) => {
     let result=[];
-    for(var i=0;i<cvs.length;i++){
-             if(cvs[i]["yearsOfExperience"]>=1){
-                 if(cvs[i]["firstName"]===null){
-                    var object={
-                        fullName :cvs[i]["lastName"],
-                        tech : cvs[i]["tech"]
-                     }
+   
+    for(var i=0;i<arr.length;i++){
+        let object={
+            fullName: "",
+            tech: ""
+        };
+        let firstName=""
+        let lastName="";
+             if(arr[i]["yearsOfExperience"]>1&&(arr[i].firstName!=null||arr[i].lastName!=null)){
+                 if(arr[i]["firstName"]!=null){
+                    firstName=arr[i]["firstName"];
+                      
                  }
-                 else if(cvs[i]["LastName"]===null){
-                    var object={
-                        fullName :cvs[i]["firstName"],
-                        tech : cvs[i]["tech"]
-                     }
+                 if(arr[i]["lastName"]!=null){
+                     if(arr[i]["firstName"]!=null){
+                    lastName=" "+arr[i]["lastName"]; }
+                    else{
+                         lastName=arr[i]["lastName"];
+                    }
                  }
-                 else{
-                     var object={
-                        fullName :cvs[i]["firstName"]+" "+cvs[i]["LastName"],
-                        tech : cvs[i]["tech"]
-                     }
-                 }
+                
+                    object.fullName=firstName+lastName;
+                    object.tech =arr[i]["tech"];
+                 
                  
               result.push(object);
              }
     }
  
     return result;
-};
+}
 
 // 3) ---------------------
 //
@@ -132,37 +136,41 @@ const cvFormatter = (arr) => {
 
 // ------------------------
 const applicationsStatics = (arr) => {
-    for(var i=0;i<cvs.length;i++){
-        if(cvs[i]["yearsOfExperience"]>=1 && (cvs[i]["firstName"]!=null || cvs[i]["LastName"]!=null) ){
-         if(cvs[i]["tech"]=="Java"){
+    let result = {
+        python_Devs: 0,
+        javaScript_Devs: 0,
+        dotNet_Devs: 0,
+        java_Devs: 0,
+        totalApplicants: 0,
+        rejectedApplicants: 0,
+    }
+    for(var i=0;i<arr.length;i++){
+         if(arr[i]["tech"]==="Java"){
              result.java_Devs+=1;
              result.totalApplicants+=1; 
          }
-         else if(cvs[i]["tech"]==".Net"){
+         else if(arr[i]["tech"]===".Net"){
             result.dotNet_Devs+=1;
             result.totalApplicants+=1; 
          }
-         else if(cvs[i]["tech"]=="JS"){
+         else if(arr[i]["tech"]==="JS"){
             result.javaScript_Devs+=1;
             result.totalApplicants+=1; 
          }
-         else if(cvs[i]["tech"]=="Python"){
+         else if(arr[i]["tech"]==="Python"){
           result.python_Devs+=1;
           result.totalApplicants+=1; 
          }
-         else{
-            result.rejectedApplicants+=1;
-            result.totalApplicants+=1; 
-         }
+         if(arr[i]["yearsOfExperience"]<1 || (arr[i]["firstName"]==null || arr[i]["lastName"]==null) ){
+            result.rejectedApplicants+=1; 
+        }   
         }
-        else{
-            result.rejectedApplicants+=1;
-            result.totalApplicants+=1; 
-        }
-    }
+       
+       
+    
 
 return result;
-};
+}
 
 // 4) ---------------------
 //
